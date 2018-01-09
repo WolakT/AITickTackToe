@@ -18,7 +18,7 @@ class GameManager(object):
 						print("Move already done")
 				else:
 					print(validation)
-				self.grid.printGrid()
+		self.grid.printGrid()
 
 			
 	def validateInput(self, sign, field):

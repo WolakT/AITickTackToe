@@ -34,6 +34,9 @@ class Grid(object):
 		elif self.checkVertically():
 			print("vertically")
 			return True
+		elif self.checkDiagonally():
+			print("diagonally")
+			return True
 		else:
 			return False
 
@@ -47,6 +50,21 @@ class Grid(object):
 				print("row contains: " , firstRow)
 			if len(firstRow) == 1 and first != ".":
 				return True
+		return False
+	
+	def checkDiagonally(self):
+		firstLine = set()
+		for i in (0,4,8):
+			first = self.gridMap[i]
+			firstLine.add(first)
+		if len(firstLine) == 1 and first != ".":
+			return True
+		firstLine = set()
+		for i in (2,4,6):
+			first = self.gridMap[i]
+			firstLine.add(first)
+		if len(firstLine) == 1 and first != ".":
+			return True
 		return False
 
 	def checkVertically(self):
