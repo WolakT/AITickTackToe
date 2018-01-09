@@ -29,13 +29,13 @@ class Grid(object):
 		if len(self.getAvailableMoves()) == 0:
 			return True
 		elif self.checkHorizontally():
-			print("horizontally")
+			#print("horizontally")
 			return True
 		elif self.checkVertically():
-			print("vertically")
+			#print("vertically")
 			return True
 		elif self.checkDiagonally():
-			print("diagonally")
+			#print("diagonally")
 			return True
 		else:
 			return False
@@ -46,8 +46,8 @@ class Grid(object):
 			for j in range(3):
 				first = self.gridMap[i+j]
 				firstRow.add(first)
-				print(f"lenght of the set is: {len(firstRow)}")
-				print("row contains: " , firstRow)
+				#print(f"lenght of the set is: {len(firstRow)}")
+				#print("row contains: " , firstRow)
 			if len(firstRow) == 1 and first != ".":
 				return True
 		return False
@@ -73,8 +73,8 @@ class Grid(object):
 			for j in (0,3,6):
 				first = self.gridMap[i+j]
 				firstColumn.add(first)
-				print(f"lenght of the set is: {len(firstColumn)}")
-				print("column contains: " , firstColumn)
+				#print(f"lenght of the set is: {len(firstColumn)}")
+				#print("column contains: " , firstColumn)
 			if len(firstColumn) == 1 and first != ".":
 				return True
 		return False
