@@ -5,19 +5,29 @@ class GameManager(object):
 		self.grid = Grid.Grid()
 	def main(self):
 		while not self.grid.isOver():
-			self.grid.printGrid()
-			userMove = input("> ")
-			sign = userMove[1]
-			field = int(userMove[0])
-			flag = self.grid.makeMove(field,sign)
-			while not flag:
-				print("this move is wrong type again:")
+			while True:
+				self.grid.printGrid()
 				userMove = input("> ")
 				sign = userMove[1]
 				field = int(userMove[0])
-				flag = self.grid.makeMove(field,sign)
-			
+				validation = self.validateInput(sign, field)
+				if validation == "":
+					if self.grid.makeMove(field,sign):
+						break
+					else:
+						print("Move already done")
+				else:
+					print(validation)
+				self.grid.printGrid()
 
+			
+	def validateInput(self, sign, field):
+		strMessage = ""
+		if sign != "X" and sign != "O":
+			strMessage = "Invalid sign"
+		elif field <0 or field> 8:
+			strMessage = "Invalid field index"
+		return strMessage
 def run():
 	manager = GameManager()
 	manager.main()
