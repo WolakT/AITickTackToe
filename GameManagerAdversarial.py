@@ -11,7 +11,9 @@ class GameManagerAdversarial(object):
         while not self.grid.isOver():
             # computer plays
             self.grid.makeMove(self.computer.makeMove(self.grid), "O")
-
+            print(self.grid.lastMove)
+            if self.grid.isOver():
+                break
             # human player
             while True:
                 self.grid.printGrid()
@@ -26,6 +28,8 @@ class GameManagerAdversarial(object):
                         print("Move already done")
                 else:
                     print(validation)
+        player = self.grid.lastMove
+        print(f"Player {player} won!")
         self.grid.printGrid()
 
     def validateInput(self, sign, field):

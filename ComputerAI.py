@@ -23,7 +23,7 @@ class ComputerAI:
         #print(moves)
         for move in moves:
             copyGrid = grid.clone()
-            copyGrid.makeMove(move, "O")
+            copyGrid.makeMove(move, "X")
             result = self.minimise(copyGrid)
             if result[1] >= maxVal:
                 maxVal = result[1]
@@ -39,7 +39,7 @@ class ComputerAI:
         moves = grid.getAvailableMoves()
         for move in moves:
             copyGrid = grid.clone()
-            copyGrid.makeMove(move, "X")
+            copyGrid.makeMove(move, "O")
             result = self.maximise(copyGrid)
             if result[1] <= minVal:
                 minVal = result[1]
@@ -48,6 +48,7 @@ class ComputerAI:
 
     def evaluate(self, grid):
         points = 0
+        grid.printGrid()
         if grid.checkHorizontally() and grid.lastMove == "O":
             points -= 1
         if grid.checkHorizontally() and grid.lastMove == "X":
@@ -63,9 +64,9 @@ class ComputerAI:
         return points
 
     def isTerminalState(self, grid):
-        if len(grid.getAvailableMoves()) == 0:
-            #print(f"terminal state reached with following grid {grid.printGrid()}")
-            #print(f"following is the state value: {self.evaluate(grid)}")
+        if grid.isOver():
+            print(f"terminal state reached with following grid {grid.printGrid()}")
+            print(f"following is the state value: {self.evaluate(grid)}")
             return True
         else:
             return False
