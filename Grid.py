@@ -2,7 +2,7 @@ from copy import deepcopy
 class Grid(object):
     def __init__(self):
         self.gridMap = {x: "." for x in range(9)}
-
+        self.lastMove = ""
     def printGrid(self):
         for i in range(len(self.gridMap)):
             if (i + 1) % 3 == 0:
@@ -25,6 +25,7 @@ class Grid(object):
     def makeMove(self, move, sign):
         if self.gridMap[move] == ".":
             self.gridMap[move] = sign
+            self.lastMove = sign
             return True
         else:
             return False
