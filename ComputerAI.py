@@ -6,13 +6,18 @@ import math
 class ComputerAI:
 
     def __init__(self):
-        self.counter = 0
+       self.counter = 0
+       self.play = 0
 
     def makeMove(self, grid):
         self.counter = 0
-        moves = grid.getAvailableMoves()
-        move = randint(0, len(moves) - 1)
-        return self.minimise(grid)[0]
+        #moves = grid.getAvailableMoves()
+        #move = randint(0, len(moves) - 1)
+        if self.play == 0:
+            self.play += 1
+            return 4
+        else:
+            return self.minimise(grid)[0]
 
     # def decision(self, grid):
 
