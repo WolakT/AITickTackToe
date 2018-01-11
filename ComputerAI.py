@@ -4,8 +4,12 @@ import math
 
 
 class ComputerAI:
-    def makeMove(self, grid):
 
+    def __init__(self):
+        self.counter = 0
+
+    def makeMove(self, grid):
+        self.counter = 0
         moves = grid.getAvailableMoves()
         move = randint(0, len(moves) - 1)
         return self.minimise(grid)[0]
@@ -48,7 +52,7 @@ class ComputerAI:
 
     def evaluate(self, grid):
         points = 0
-        grid.printGrid()
+        
         if grid.checkHorizontally() and grid.lastMove == "O":
             points -= 1
         if grid.checkHorizontally() and grid.lastMove == "X":
@@ -64,9 +68,11 @@ class ComputerAI:
         return points
 
     def isTerminalState(self, grid):
-        if grid.isOver():
+        if grid.isOver() or grid.isWin():
             print(f"terminal state reached with following grid {grid.printGrid()}")
             print(f"following is the state value: {self.evaluate(grid)}")
+            self.counter += 1
+            print(f"followin is the couner value: {self.counter}")
             return True
         else:
             return False

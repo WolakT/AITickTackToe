@@ -33,7 +33,9 @@ class Grid(object):
     def isOver(self):
         if len(self.getAvailableMoves()) == 0:
             return True
-        elif self.checkHorizontally():
+
+    def isWin(self):
+        if self.checkHorizontally():
             # print("horizontally")
             return True
         elif self.checkVertically():

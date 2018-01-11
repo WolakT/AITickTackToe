@@ -8,12 +8,13 @@ class GameManagerAdversarial(object):
         self.computer = ComputerAI.ComputerAI()
 
     def main(self):
-        while not self.grid.isOver():
+        while not self.grid.isOver() or not self.grid.isWin():
             # computer plays
             self.grid.makeMove(self.computer.makeMove(self.grid), "O")
             print(self.grid.lastMove)
-            if self.grid.isOver():
+            if self.grid.isOver() or self.grid.isWin():
                 break
+
             # human player
             while True:
                 self.grid.printGrid()
@@ -28,8 +29,9 @@ class GameManagerAdversarial(object):
                         print("Move already done")
                 else:
                     print(validation)
-        player = self.grid.lastMove
-        print(f"Player {player} won!")
+        if self.grid.isWin():
+            player = self.grid.lastMove
+            print(f"Player {player} won!")
         self.grid.printGrid()
 
     def validateInput(self, sign, field):
