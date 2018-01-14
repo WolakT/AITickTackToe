@@ -1,20 +1,25 @@
 import Grid
 import ComputerAI
+import ComputerAIAlphaBeta
 
 
 class GameManagerAdversarial(object):
     def __init__(self):
         self.grid = Grid.Grid()
-        self.computer = ComputerAI.ComputerAI()
+        if False:
+            self.computer = ComputerAI.ComputerAI()
+        else:
+            self.computer = ComputerAIAlphaBeta.ComputerAI()
 
     def main(self):
-        while not self.grid.isOver() or not self.grid.isWin():
+        while not self.grid.isOver() and not self.grid.isWin():
             # computer plays
+
             self.grid.makeMove(self.computer.makeMove(self.grid), "O")
             print(self.grid.lastMove)
             if self.grid.isOver() or self.grid.isWin():
                 break
-
+            self.grid.isWin()
             # human player
             while True:
                 self.grid.printGrid()
@@ -29,9 +34,9 @@ class GameManagerAdversarial(object):
                         print("Move already done")
                 else:
                     print(validation)
-        if self.grid.isWin():
-            player = self.grid.lastMove
-            print(f"Player {player} won!")
+            if self.grid.isWin():
+                player = self.grid.lastMove
+                print(f"Player {player} won!")
         self.grid.printGrid()
 
     def validateInput(self, sign, field):

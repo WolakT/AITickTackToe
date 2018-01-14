@@ -4,42 +4,45 @@ import math
 
 
 class ComputerAI:
-
     def __init__(self):
-       self.counter = 0
-       self.play = 0
+        self.counter = 0
+        self.play = 0
 
     def makeMove(self, grid):
         self.counter = 0
-        #moves = grid.getAvailableMoves()
-        #move = randint(0, len(moves) - 1)
+        # moves = grid.getAvailableMoves()
+        # move = randint(0, len(moves) - 1)
         # if self.play == 0:
         #     self.play += 1
         #     return 4
         # else:
-        return self.minimise(grid)[0]
+        return self.minimise(grid, -math.inf, math.inf)[0]
 
     # def decision(self, grid):
 
 
-    def maximise(self, grid):
+    def maximise(self, grid, alpha, beta):
         if self.isTerminalState(grid):
             value = self.evaluate(grid)
             return None, value
         maxMove = None
         maxVal = -math.inf
         moves = grid.getAvailableMoves()
-        #print(moves)
+        # print(moves)
         for move in moves:
             copyGrid = grid.clone()
             copyGrid.makeMove(move, "X")
-            result = self.minimise(copyGrid)
+            result = self.minimise(copyGrid, alpha, beta)
             if result[1] >= maxVal:
                 maxVal = result[1]
                 maxMove = move
+            if maxVal >= beta:
+                return maxMove, maxVal
+            if maxVal > alpha:
+                alpha = maxVal
         return maxMove, maxVal
 
-    def minimise(self, grid):
+    def minimise(self, grid, alpha, beta):
         if self.isTerminalState(grid):
             value = self.evaluate(grid)
             return None, value
@@ -49,15 +52,19 @@ class ComputerAI:
         for move in moves:
             copyGrid = grid.clone()
             copyGrid.makeMove(move, "O")
-            result = self.maximise(copyGrid)
+            result = self.maximise(copyGrid, alpha, beta)
             if result[1] <= minVal:
                 minVal = result[1]
                 minMove = move
+            if minVal <= alpha:
+                return minMove, minVal
+            if minVal < beta:
+                beta = minVal
         return minMove, minVal
 
     def evaluate(self, grid):
         points = 0
-        
+
         if grid.checkHorizontally() and grid.lastMove == "O":
             points -= 1
         if grid.checkHorizontally() and grid.lastMove == "X":
@@ -70,6 +77,10 @@ class ComputerAI:
             points -= 1
         if grid.checkDiagonally() and grid.lastMove == "X":
             points += 1
+        if grid.gridMap[4] == "X":
+            points += 1
+        if grid.gridMap[4] == "O":
+            points -= 1
         return points
 
     def isTerminalState(self, grid):
@@ -81,7 +92,6 @@ class ComputerAI:
             return True
         else:
             return False
-
 
 # def run():
 #     comp = ComputerAI()
