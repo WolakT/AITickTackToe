@@ -79,8 +79,8 @@ class ComputerAI:
             points += 1
         if grid.gridMap[4] == "X":
             points += 1
-        if grid.gridMap[4] == "O":
-            points -= 1
+        #if grid.gridMap[4] == "O":
+          #  points -= 1
         return points
 
     def isTerminalState(self, grid):
