@@ -1,5 +1,6 @@
 from Grid import Grid
 from random import randint
+import collections
 import math
 
 
@@ -7,7 +8,6 @@ class ComputerAI:
     def __init__(self):
         self.counter = 0
         self.play = 0
-
     def makeMove(self, grid):
         self.counter = 0
         # moves = grid.getAvailableMoves()
@@ -16,8 +16,9 @@ class ComputerAI:
         #     self.play += 1
         #     return 4
         # else:
-        return self.minimise(grid, -math.inf, math.inf)[0]
 
+        result = self.minimise(grid, -math.inf, math.inf)[0]
+        return result
     # def decision(self, grid):
 
 
@@ -36,7 +37,10 @@ class ComputerAI:
             if result[1] >= maxVal:
                 maxVal = result[1]
                 maxMove = move
+                optimalGrid = copyGrid.clone()
             if maxVal >= beta:
+                print(f"the biggest grid till now is  {optimalGrid.printGrid()}")
+                print(f"beta equals {beta}")
                 return maxMove, maxVal
             if maxVal > alpha:
                 alpha = maxVal
@@ -56,7 +60,12 @@ class ComputerAI:
             if result[1] <= minVal:
                 minVal = result[1]
                 minMove = move
+                optimalGrid = copyGrid.clone()
             if minVal <= alpha:
+
+                print(f"the biggest grid till now is  {optimalGrid.printGrid()}")
+                print(f"alpha equals {alpha}")
+
                 return minMove, minVal
             if minVal < beta:
                 beta = minVal
