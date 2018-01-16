@@ -38,7 +38,7 @@ class ComputerAI:
                 maxVal = result[1]
                 maxMove = move
                 optimalGrid = copyGrid.clone()
-            if maxVal >= beta:
+            if maxVal <= beta:
                 print(f"the biggest grid till now is  {optimalGrid.printGrid()}")
                 print(f"beta equals {beta}")
                 return maxMove, maxVal
@@ -61,7 +61,7 @@ class ComputerAI:
                 minVal = result[1]
                 minMove = move
                 optimalGrid = copyGrid.clone()
-            if minVal <= alpha:
+            if minVal >= alpha:
 
                 print(f"the biggest grid till now is  {optimalGrid.printGrid()}")
                 print(f"alpha equals {alpha}")
