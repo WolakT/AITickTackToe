@@ -17,11 +17,11 @@ class ComputerAI:
         #     return 4
         # else:
 
-        result = self.maximise(grid, -math.inf, math.inf)[0]
+        result = self.maximise(grid)[0]
         return result
    
 
-    def maximise(self, grid, alpha, beta):
+    def maximise(self, grid):
         if self.isTerminalState(grid):
             value = self.evaluate(grid)
             return None, value
@@ -32,21 +32,16 @@ class ComputerAI:
         for move in moves:
             copyGrid = grid.clone()
             copyGrid.makeMove(move, "O")
-            result = self.minimise(copyGrid, alpha, beta)
-            print(f" beta is {beta} and alpha is {alpha}")
-     #result[1] = beta
+            result = self.minimise(copyGrid)
+           
+    
             if result[1] >= maxVal:
                 maxVal = result[1]
                 maxMove = move
-               
-            if maxVal >= beta:
-                return maxMove, maxVal
-            if maxVal > alpha:
-                alpha = maxVal
-                print(f"alpha assigned value is {alpha}")
+         
         return maxMove, maxVal
 
-    def minimise(self, grid, alpha, beta):
+    def minimise(self, grid):
         if self.isTerminalState(grid):
             value = self.evaluate(grid)
             return None, value
@@ -56,15 +51,12 @@ class ComputerAI:
         for move in moves:
             copyGrid = grid.clone()
             copyGrid.makeMove(move, "X")
-            result = self.maximise(copyGrid, alpha, beta)
+            result = self.maximise(copyGrid)
 #result[1] = alpha
             if result[1] <= minVal:
                 minVal = result[1]
                 minMove = move
-            if minVal <= alpha:
-                return minMove, minVal
-            if minVal < beta:
-                beta = minVal
+         
         return minMove, minVal
 
     def evaluate(self, grid):

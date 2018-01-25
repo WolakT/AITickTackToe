@@ -1,7 +1,7 @@
 import Grid
 import ComputerAI
 import ComputerAIAlphaBeta
-
+import ComputerRemoved
 
 class GameManagerAdversarial(object):
     def __init__(self):
@@ -9,7 +9,7 @@ class GameManagerAdversarial(object):
         if False:
             self.computer = ComputerAI.ComputerAI()
         else:
-            self.computer = ComputerAIAlphaBeta.ComputerAI()
+            self.computer = ComputerRemoved.ComputerAI()
 
     def main(self):
         while not self.grid.isOver() and not self.grid.isWin():
